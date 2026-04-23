@@ -5,3 +5,8 @@ logs/
 plugins/
 *.log
 .ssh/
+*.pem
+*.pub
+id_rsa
+id_ed25519
+.ssh/
