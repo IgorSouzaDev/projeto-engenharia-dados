@@ -40,7 +40,7 @@ def transformacao_silver():
 
         df.write\
         .mode("overwrite")\
-        .parquet("silver_data/dados.parquet")
+        .parquet("silver_data/dados_silver.parquet")
         print("✅ Transformação para Silver bem sucedida!")
     except Exception as e:
         print(f"Erro na transformação para Silver: {e}")

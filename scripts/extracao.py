@@ -31,32 +31,11 @@ def extracao():
 
 def ingestion_raw(df):
     try:
-        # schema_rating= StructType([
-        #     StructField("count", IntegerType(),True),
-        #     StructField("rate", DoubleType(), True)
 
-        # ])
-
-        schema= StructType([
-            StructField("category", StringType(), True),
-            StructField("description", StringType(), True),
-            StructField("id", IntegerType(), True),
-            StructField("image", StringType(), True),
-            StructField("price", DoubleType(), True),
-            StructField("rating", StringType(), True),
-            StructField("title", StringType(), True)
-
-        ])
         df=spark.read.json(spark.sparkContext.parallelize([dados]))
-        #print(df.printSchema())
-
-        # df= df.withColumn("avaliacoes", F.col("rating.count")) \
-        #                 .withColumn("rate", F.col("rating.rate")) \
-        #                 .drop("rating")
-
         df.write\
         .mode("overwrite")\
-        .parquet("raw_data/dados.parquet")
+        .parquet("raw_data/dados_raw.parquet")
         print("✅ Ingestão bem sucedida!")
     except Exception as e:
         print(f"Erro ao salvar os dados: {e}")
