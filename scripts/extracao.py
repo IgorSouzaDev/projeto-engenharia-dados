@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from pyspark.sql  import functions as F
 from pyspark.sql import SparkSession  
 from pyspark.sql.types import StructType, StructField, StringType, DoubleType, IntegerType  
-import json
+
 
 load_dotenv()
 spark = SparkSession.builder.appName('extracao').getOrCreate()
@@ -31,11 +31,11 @@ def extracao():
 
 def ingestion_raw(df):
     try:
-        schema_rating= StructType([
-            StructField("count", IntegerType(),True),
-            StructField("rate", DoubleType(), True)
+        # schema_rating= StructType([
+        #     StructField("count", IntegerType(),True),
+        #     StructField("rate", DoubleType(), True)
 
-        ])
+        # ])
 
         schema= StructType([
             StructField("category", StringType(), True),
@@ -43,16 +43,16 @@ def ingestion_raw(df):
             StructField("id", IntegerType(), True),
             StructField("image", StringType(), True),
             StructField("price", DoubleType(), True),
-            StructField("rating", schema_rating, True),
+            StructField("rating", StringType(), True),
             StructField("title", StringType(), True)
 
         ])
-        df=spark.read.json(spark.sparkContext.parallelize([dados]), schema=schema)
-        print(df.printSchema())
+        df=spark.read.json(spark.sparkContext.parallelize([dados]))
+        #print(df.printSchema())
 
-        df= df.withColumn("avaliacoes", F.col("rating.count")) \
-                        .withColumn("rate", F.col("rating.rate")) \
-                        .drop("rating")
+        # df= df.withColumn("avaliacoes", F.col("rating.count")) \
+        #                 .withColumn("rate", F.col("rating.rate")) \
+        #                 .drop("rating")
 
         df.write\
         .mode("overwrite")\

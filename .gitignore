@@ -10,3 +10,6 @@ plugins/
 id_rsa
 id_ed25519
 .ssh/
+\raw_data
+\silver_data
+\gold_data
