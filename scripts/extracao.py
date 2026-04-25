@@ -35,7 +35,7 @@ def ingestion_raw(df):
         df=spark.read.json(spark.sparkContext.parallelize([dados]))
         df.write\
         .mode("overwrite")\
-        .parquet("raw_data/dados_raw.parquet")
+        .parquet("/opt/airflow/raw_data/dados_raw.parquet")
         print("✅ Ingestão bem sucedida!")
     except Exception as e:
         print(f"Erro ao salvar os dados: {e}")

@@ -31,7 +31,7 @@ def transformacao_silver():
 
             ])
 
-        df = spark.read.parquet("raw_data/dados.parquet",schema=schema)
+        df = spark.read.parquet("/opt/airflow/raw_data/dados_raw.parquet",schema=schema)
 
         print(df.printSchema())
         df = df.withColumn("avaliacoes", F.col("rating.count")) \
@@ -40,7 +40,8 @@ def transformacao_silver():
 
         df.write\
         .mode("overwrite")\
-        .parquet("silver_data/dados_silver.parquet")
+        .parquet("/opt/airflow/silver_data/dados_silver.parquet")
+        
         print("✅ Transformação para Silver bem sucedida!")
     except Exception as e:
         print(f"Erro na transformação para Silver: {e}")
