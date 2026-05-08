@@ -43,13 +43,13 @@ with DAG(
     catchup=False
 ) as dag:
 
-    # 1. Agora sim, criamos a Task de validação
+    # Task de validação
     validar_dados = BranchPythonOperator(
         task_id='validar_dados',
         python_callable=verificar_api
     )
 
-    # 2. Task para o caso de não haver dados (caminho alternativo)
+    # Task para o caso de não haver dados (caminho alternativo)
     sem_dados = EmptyOperator(
         task_id='sem_dados'
     )
